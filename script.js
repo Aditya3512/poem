@@ -1,5 +1,6 @@
 async function generatePoem() {
     let topic = document.getElementById("topic").value;
+    let language = document.getElementById("language").value; // Get selected language
     let poemDisplay = document.getElementById("poem");
     let copyBtn = document.getElementById("copyBtn");
 
@@ -13,9 +14,22 @@ async function generatePoem() {
     // Gemini API Key (Replace with your actual API key)
     const API_KEY = "AIzaSyCx6ZZLwH77ytVrksXcWwzOk8cZAe5DZrE"; 
 
+    // Determine the language for the poem
+    let languageText;
+    if (language === "hindi") {
+        languageText = "Hindi";
+    } else if (language === "bhojpuri") {
+        languageText = "Bhojpuri";
+    } else {
+        languageText = "English";
+    }
+
     // API request body
     const requestBody = {
-        contents: [{ role: "user", parts: [{ text: `Write a short, creative poem about ${topic}.` }] }]
+        contents: [{ 
+            role: "user", 
+            parts: [{ text: `Write a short, creative poem about ${topic} in ${languageText}.` }] 
+        }]
     };
 
     try {
