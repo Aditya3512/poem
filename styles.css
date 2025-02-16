@@ -1,93 +1,173 @@
-/* Apply a smooth gradient background */
-body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(to right, #ff758c, #ff7eb3, #fad0c4);
-    text-align: center;
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+/* Global Styles */
+* {
     margin: 0;
     padding: 0;
-    height: 100vh;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    background: linear-gradient(135deg, #1e1e2e, #2a2a3b);
+    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-/* Glassmorphism style container */
-.container {
-    max-width: 450px;
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(15px);
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    height: 100vh;
     text-align: center;
-    animation: fadeIn 1s ease-in-out;
+    overflow: hidden;
+    padding: 20px;
 }
 
-/* Stylish heading */
+/* Background Animation */
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    width: 100%;
+    max-width: 420px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Hover Effect */
+.container:hover {
+    transform: scale(1.02);
+}
+
+/* Heading Animation */
 h1 {
     font-size: 24px;
-    color: white;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGlow 2s infinite alternate;
 }
 
-/* Input box styling */
-input {
-    width: 90%;
+/* Text Glow */
+@keyframes textGlow {
+    0% { text-shadow: 0 0 5px #ff8a00; }
+    100% { text-shadow: 0 0 15px #e52e71; }
+}
+
+/* Input Fields */
+input, select {
+    width: 100%;
     padding: 12px;
-    margin: 15px 0;
+    margin: 8px 0;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
     font-size: 16px;
     outline: none;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: background 0.3s, transform 0.2s;
 }
 
-/* Button styling */
+/* Mobile-Specific Interaction */
+input:focus, select:focus {
+    transform: scale(1.02);
+}
+
+/* Buttons */
 button {
-    background: linear-gradient(to right, #ff758c, #ff7eb3);
-    color: white;
+    width: 100%;
+    padding: 14px;
     border: none;
-    padding: 12px 18px;
-    border-radius: 8px;
-    font-size: 16px;
+    border-radius: 12px;
+    background: linear-gradient(90deg, #ff8a00, #e52e71);
+    color: white;
+    font-size: 18px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.3s ease-in-out;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
 button:hover {
-    background: linear-gradient(to right, #ff5252, #ff7eb3);
     transform: scale(1.05);
+    box-shadow: 0 0 10px #ff8a00;
 }
 
-/* Poem display area */
+/* Poem Box */
 #poem {
     margin-top: 15px;
-    font-size: 18px;
-    color: white;
-    font-style: italic;
-    padding: 15px;
+    padding: 12px;
     background: rgba(255, 255, 255, 0.2);
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    display: inline-block;
-    max-width: 80%;
+    color: white;
+    font-size: 16px;
+    min-height: 70px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    transition: all 0.3s;
+    word-wrap: break-word;
 }
 
-/* Copy button */
+/* Copy Button */
 #copyBtn {
     display: none;
-    margin-top: 12px;
+    margin-top: 10px;
 }
 
-/* Fade-in animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
+/* Floating Bubbles Animation */
+@keyframes bubbles {
+    0% { transform: translateY(0); opacity: 0.3; }
+    50% { transform: translateY(-10px); opacity: 1; }
+    100% { transform: translateY(0); opacity: 0.3; }
+}
+
+.bubble {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: bubbles 4s infinite ease-in-out;
+}
+
+.bubble:nth-child(1) { top: 10%; left: 20%; animation-duration: 4s; }
+.bubble:nth-child(2) { top: 30%; left: 80%; animation-duration: 6s; }
+.bubble:nth-child(3) { top: 50%; left: 40%; animation-duration: 5s; }
+.bubble:nth-child(4) { top: 70%; left: 60%; animation-duration: 7s; }
+
+/* 🌟 Mobile Responsiveness */
+@media screen and (max-width: 480px) {
+    body {
+        height: auto;
+        padding: 10px;
     }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+
+    .container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+    }
+
+    input, select {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    button {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    #poem {
+        font-size: 14px;
     }
 }
