@@ -3,21 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nano Poem Generator</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Advanced Poem Generator</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <div class="container">
-        <h1>✨ Nano Poem Generator ✨</h1>
-        <input type="text" id="topic" placeholder="Enter a topic...">
+        <h1>Poem Generator</h1>
+        <p>Generate a beautiful poem in seconds.</p>
+
+        <label for="language">Choose Language:</label>
+        <select id="language">
+            <option value="english">English</option>
+            <option value="hindi">Hindi</option>
+        </select>
+
+        <label for="topic">Enter a Topic:</label>
+        <input type="text" id="topic" placeholder="e.g., Love, Nature, Life">
+
         <button onclick="generatePoem()">Generate Poem</button>
-        <div id="poem"></div>
+
+        <div id="poem-container">
+            <h2>Your Poem:</h2>
+            <div id="poem"></div>
+        </div>
+
         <button id="copyBtn" onclick="copyPoem()">Copy Poem</button>
     </div>
+
     <script src="script.js"></script>
-    <div class="bubble"></div>
-<div class="bubble"></div>
-<div class="bubble"></div>
-<div class="bubble"></div>
 </body>
 </html>
