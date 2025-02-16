@@ -1,15 +1,47 @@
-function generatePoem() {
+async function generatePoem() {
     let topic = document.getElementById("topic").value;
+    let poemDisplay = document.getElementById("poem");
+    let copyBtn = document.getElementById("copyBtn");
 
     if (topic.trim() === "") {
         alert("Please enter a topic!");
         return;
     }
 
-    // Construct a Google search query for poems about the topic
-    let query = `short poem about ${encodeURIComponent(topic)}`;
-    let googleSearchUrl = `https://www.google.com/search?q=${query}`;
+    poemDisplay.innerHTML = "⏳ Generating poem... Please wait."; 
 
-    // Open Google search in a new tab
-    window.open(googleSearchUrl, "_blank");
+    // Gemini API Key (Replace with your actual API key)
+    const API_KEY = "AIzaSyCx6ZZLwH77ytVrksXcWwzOk8cZAe5DZrE"; 
+
+    // API request body
+    const requestBody = {
+        contents: [{ role: "user", parts: [{ text: `Write a short, creative poem about ${topic}.` }] }]
+    };
+
+    try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-pro:generateContent?key=${API_KEY}`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(requestBody)
+        });
+
+        const data = await response.json();
+        let poem = data.candidates?.[0]?.content?.parts?.[0]?.text || "No poem generated. Try again!";
+
+        // Display the generated poem
+        poemDisplay.innerHTML = poem;
+        copyBtn.style.display = "block"; // Show copy button
+
+    } catch (error) {
+        poemDisplay.innerHTML = "❌ Error generating poem. Please try again!";
+        console.error("Error:", error);
+    }
+}
+
+// Function to copy the generated poem to clipboard
+function copyPoem() {
+    let poemText = document.getElementById("poem").innerText;
+    navigator.clipboard.writeText(poemText).then(() => {
+        alert("Poem copied to clipboard!");
+    });
 }
